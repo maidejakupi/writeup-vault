@@ -4,35 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $title ?? 'Writeup Vault' }}</title>
+    <style>[x-cloak] { display: none !important; }</style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-950 text-green-400 font-mono min-h-screen">
-<header class="border-b border-green-500/30">
+<body class="bg-gray-950 text-green-400 font-mono min-h-screen flex flex-col">
+<header x-data="{ open: false }" class="border-b border-green-500/30">
     <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
         <a href="{{ route('writeups.index') }}" class="text-xl font-bold">
             <span class="text-green-600">root@vault:~$</span> writeups<span class="animate-pulse">_</span>
         </a>
 
-        <div class="flex items-center gap-4 text-sm">
-            @auth
-                <a href="{{ route('dashboard') }}" class="hover:text-green-200">dashboard</a>
-                <a href="{{ route('writeups.create') }}" class="hover:text-green-200">+ new writeup</a>
-                <a href="{{ route('profile.edit') }}" class="text-green-600 hover:text-green-200">{{ auth()->user()->name }}</a>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="hover:text-green-200">logout</button>
-                </form>
-            @endauth
+        {{-- Desktop links --}}
+        <x-nav-links class="hidden md:flex items-center gap-4 text-sm" />
 
-            @guest
-                <a href="{{ route('login') }}" class="hover:text-green-200">login</a>
-                <a href="{{ route('register') }}" class="hover:text-green-200">register</a>
-            @endguest
-        </div>
+        {{-- Mobile menu button --}}
+        <button type="button" @click="open = !open" aria-label="Toggle menu"
+                class="md:hidden border border-green-500/50 rounded px-3 py-1 text-lg">
+            <span x-show="!open">&#9776;</span>
+            <span x-show="open" x-cloak>&times;</span>
+        </button>
     </nav>
+
+    {{-- Mobile links --}}
+    <div x-show="open" x-cloak x-transition class="md:hidden border-t border-green-500/30 px-4 py-4">
+        <x-nav-links class="flex flex-col gap-3 text-sm" />
+    </div>
 </header>
 
-<main class="max-w-6xl mx-auto px-4 py-8">
+<main class="flex-1 w-full max-w-6xl mx-auto px-4 py-8">
     @if (session('success'))
         <div x-data="{ show: true }" x-show="show"
              class="mb-6 flex items-center justify-between border border-green-500 bg-green-950 rounded p-4">
@@ -43,5 +42,12 @@
 
     {{ $slot }}
 </main>
+
+<footer class="border-t border-green-500/30">
+    <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col sm:flex-row justify-between gap-2 text-xs text-green-700">
+        <p>&copy; {{ date('Y') }} Writeup Vault &middot; built with Laravel</p>
+        <p>// share what you learned, hide the flags</p>
+    </div>
+</footer>
 </body>
 </html>

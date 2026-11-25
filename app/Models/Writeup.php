@@ -26,4 +26,9 @@ class Writeup extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getReadingTimeAttribute(): int
+    {
+        return max(1, (int) ceil(str_word_count($this->body) / 200));
+    }
 }

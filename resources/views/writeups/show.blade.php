@@ -16,9 +16,17 @@
 
         <p class="mt-3 text-sm text-green-700">
             author: {{ $writeup->user->name }} &middot; {{ $writeup->created_at->diffForHumans() }}
+            &middot; {{ $writeup->reading_time }} min read
         </p>
 
-        <div class="mt-6 whitespace-pre-line text-green-400">{{ $writeup->body }}</div>
+        @php
+            // Split the text so that flags like THM{...} or HTB{...} become separate parts
+            $parts = preg_split('/([A-Za-z0-9_]{2,12}\{[^}\s]+\})/', $writeup->body, -1, PREG_SPLIT_DELIM_CAPTURE);
+        @endphp
+
+        <div class="mt-6 whitespace-pre-line text-green-400">@foreach ($parts as $i => $part)@if ($i % 2 === 1)<x-flag :flag="$part" />@else{{ $part }}@endif @endforeach</div>
+
+        <p class="mt-4 text-xs text-green-700">// flags are hidden, click one to reveal it</p>
 
         @canany(['update', 'delete'], $writeup)
             <div class="mt-8 flex gap-3 border-t border-green-500/20 pt-6">

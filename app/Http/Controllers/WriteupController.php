@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Writeup;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\User;
 
 class WriteupController extends Controller
 {
@@ -21,7 +22,13 @@ class WriteupController extends Controller
             ->paginate(9)
             ->withQueryString();
 
-        return view('writeups.index', compact('writeups'));
+        $stats = [
+            'writeups' => Writeup::count(),
+            'authors' => User::count(),
+            'categories' => Writeup::distinct()->count('category'),
+        ];
+
+        return view('writeups.index', compact('writeups', 'stats'));
     }
 
     public function create()
