@@ -37,11 +37,15 @@ class WriteupController extends Controller
 
     public function edit(Writeup $writeup)
     {
+        $this->authorize('update', $writeup);
+
         return view('writeups.edit', compact('writeup'));
     }
 
     public function update(Request $request, Writeup $writeup)
     {
+        $this->authorize('update', $writeup);
+
         $validated = $this->validateWriteup($request);
 
         $writeup->update($validated);
@@ -52,6 +56,8 @@ class WriteupController extends Controller
 
     public function destroy(Writeup $writeup)
     {
+        $this->authorize('delete', $writeup);
+
         $writeup->delete();
 
         return redirect()->route('writeups.index')
