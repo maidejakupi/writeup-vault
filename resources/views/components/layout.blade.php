@@ -15,9 +15,9 @@
 
         <div class="flex items-center gap-4 text-sm">
             @auth
-
+                <a href="{{ route('dashboard') }}" class="hover:text-green-200">dashboard</a>
                 <a href="{{ route('writeups.create') }}" class="hover:text-green-200">+ new writeup</a>
-                <span class="text-green-600">{{ auth()->user()->name }}</span>
+                <a href="{{ route('profile.edit') }}" class="text-green-600 hover:text-green-200">{{ auth()->user()->name }}</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
                     <button type="submit" class="hover:text-green-200">logout</button>
