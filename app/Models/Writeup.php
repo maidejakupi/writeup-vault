@@ -12,10 +12,13 @@ class Writeup extends Model
     public const CATEGORIES = ['Web', 'Crypto', 'Forensics', 'Pwn', 'Reverse Engineering', 'OSINT', 'Misc'];
     public const DIFFICULTIES = ['Easy', 'Medium', 'Hard'];
 
+    public const PLATFORMS = ['TryHackMe', 'HackTheBox', 'picoCTF', 'CTFtime', 'Other'];
+
     protected $fillable = [
         'title',
         'category',
         'difficulty',
+        'platform',
         'body',
     ];
 
