@@ -2,23 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\Writeup;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends Factory<Writeup>
- */
 class WriteupFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory(),
+            'title' => fake()->sentence(4),
+            'category' => fake()->randomElement(['Web', 'Crypto', 'Forensics', 'Pwn', 'Reverse Engineering', 'OSINT', 'Misc']),
+            'difficulty' => fake()->randomElement(['Easy', 'Medium', 'Hard']),
+            'body' => fake()->paragraphs(4, true),
         ];
     }
 }
