@@ -6,10 +6,12 @@
     <title>{{ $title ?? 'Writeup Vault' }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-100 text-gray-900">
-<header class="bg-gray-900 text-white">
+<body class="bg-gray-950 text-green-400 font-mono min-h-screen">
+<header class="border-b border-green-500/30">
     <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-        <a href="{{ route('writeups.index') }}" class="text-xl font-bold">Writeup Vault</a>
+        <a href="{{ route('writeups.index') }}" class="text-xl font-bold">
+            <span class="text-green-600">root@vault:~$</span> writeups<span class="animate-pulse">_</span>
+        </a>
     </nav>
 </header>
 
