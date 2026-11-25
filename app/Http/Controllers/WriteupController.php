@@ -8,9 +8,18 @@ use Illuminate\Validation\Rule;
 
 class WriteupController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $writeups = Writeup::with('user')->latest()->paginate(9);
+        $writeups = Writeup::with('user')
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $query->where('title', 'like', '%' . $request->search . '%');
+            })
+            ->when($request->filled('category'), fn ($query) => $query->where('category', $request->category))
+            ->when($request->filled('difficulty'), fn ($query) => $query->where('difficulty', $request->difficulty))
+            ->when($request->filled('platform'), fn ($query) => $query->where('platform', $request->platform))
+            ->latest()
+            ->paginate(9)
+            ->withQueryString();
 
         return view('writeups.index', compact('writeups'));
     }
@@ -70,6 +79,7 @@ class WriteupController extends Controller
             'title' => 'required|string|max:255',
             'category' => ['required', Rule::in(Writeup::CATEGORIES)],
             'difficulty' => ['required', Rule::in(Writeup::DIFFICULTIES)],
+            'platform' => ['required', Rule::in(Writeup::PLATFORMS)],
             'body' => 'required|string|min:20',
         ]);
     }

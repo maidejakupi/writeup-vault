@@ -31,6 +31,7 @@ class WriteupFactory extends Factory
             'title' => fake()->randomElement($titles),
             'category' => $category,
             'difficulty' => fake()->randomElement(['Easy', 'Medium', 'Hard']),
+            'platform' => fake()->randomElement(['TryHackMe', 'HackTheBox', 'picoCTF', 'CTFtime', 'Other']),
             'body' => "Recon\nI started with an nmap scan and found port "
                 . fake()->randomElement([22, 80, 443, 8080])
                 . " open. A closer look at the service showed something interesting.\n\n"

@@ -8,9 +8,10 @@
     <article class="mt-4 bg-gray-900 border border-green-500/30 rounded-lg p-8">
         <h1 class="text-3xl font-bold text-green-300">{{ $writeup->title }}</h1>
 
-        <div class="mt-3 flex gap-2">
+        <div class="mt-3 flex flex-wrap gap-2">
             <span class="px-2 py-1 text-xs border border-cyan-500 text-cyan-400 rounded">{{ $writeup->category }}</span>
             <x-difficulty-badge :level="$writeup->difficulty" />
+            <span class="px-2 py-1 text-xs border border-purple-500 text-purple-400 rounded">{{ $writeup->platform }}</span>
         </div>
 
         <p class="mt-3 text-sm text-green-700">

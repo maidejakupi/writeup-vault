@@ -6,7 +6,7 @@
         @error('title') <p class="text-red-400 text-sm mt-1">{{ $message }}</p> @enderror
     </div>
 
-    <div class="grid gap-4 md:grid-cols-2">
+    <div class="grid gap-4 md:grid-cols-3">
         <div>
             <label for="category" class="block text-sm mb-1">Category</label>
             <select id="category" name="category"
@@ -33,6 +33,20 @@
                 @endforeach
             </select>
             @error('difficulty') <p class="text-red-400 text-sm mt-1">{{ $message }}</p> @enderror
+        </div>
+
+        <div>
+            <label for="platform" class="block text-sm mb-1">Platform</label>
+            <select id="platform" name="platform"
+                    class="w-full bg-gray-950 border border-green-500/40 rounded px-3 py-2 focus:outline-none focus:border-green-400">
+                <option value="">Select a platform</option>
+                @foreach (\App\Models\Writeup::PLATFORMS as $platform)
+                    <option value="{{ $platform }}" @selected(old('platform', $writeup->platform ?? '') === $platform)>
+                        {{ $platform }}
+                    </option>
+                @endforeach
+            </select>
+            @error('platform') <p class="text-red-400 text-sm mt-1">{{ $message }}</p> @enderror
         </div>
     </div>
 
