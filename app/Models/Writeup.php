@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Writeup extends Model
 {
     use HasFactory;
+    public const CATEGORIES = ['Web', 'Crypto', 'Forensics', 'Pwn', 'Reverse Engineering', 'OSINT', 'Misc'];
+    public const DIFFICULTIES = ['Easy', 'Medium', 'Hard'];
 
     protected $fillable = [
         'title',

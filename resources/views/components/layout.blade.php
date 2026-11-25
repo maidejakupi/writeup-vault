@@ -15,6 +15,8 @@
 
         <div class="flex items-center gap-4 text-sm">
             @auth
+
+                <a href="{{ route('writeups.create') }}" class="hover:text-green-200">+ new writeup</a>
                 <span class="text-green-600">{{ auth()->user()->name }}</span>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

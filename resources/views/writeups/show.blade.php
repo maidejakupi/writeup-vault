@@ -18,5 +18,24 @@
         </p>
 
         <div class="mt-6 whitespace-pre-line text-green-400">{{ $writeup->body }}</div>
+
+        @auth
+            <div class="mt-8 flex gap-3 border-t border-green-500/20 pt-6">
+                <a href="{{ route('writeups.edit', $writeup) }}"
+                   class="border border-cyan-500 text-cyan-400 rounded px-4 py-2 text-sm hover:bg-cyan-500 hover:text-gray-950 transition">
+                    Edit
+                </a>
+
+                <form method="POST" action="{{ route('writeups.destroy', $writeup) }}"
+                      onsubmit="return confirm('Delete this writeup?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit"
+                            class="border border-red-500 text-red-400 rounded px-4 py-2 text-sm hover:bg-red-500 hover:text-gray-950 transition">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        @endauth
     </article>
 </x-layout>
